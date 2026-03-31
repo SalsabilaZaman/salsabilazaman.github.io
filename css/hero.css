@@ -1,0 +1,160 @@
+/* ===== HERO ===== */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 5% 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gradient overlay on the right */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 77, 46, 0.04) 100%);
+  pointer-events: none;
+}
+
+/* Vertical accent line on the left edge */
+.hero-line {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 60%;
+  transform: translateY(-50%);
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+}
+
+.hero-content {
+  max-width: 560px;
+  padding-left: 2rem;
+}
+
+.hero-greeting {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-greeting::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name span {
+  color: var(--accent);
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  color: var(--muted);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.hero-desc {
+  font-size: 0.95rem;
+  color: #aaa;
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Avatar / Image Frame ---------- */
+
+/* Flex column on the hero so the image sits alongside content — no transforms */
+.hero-image {
+  position: absolute;
+  right: 8%;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;   /* vertical center via flexbox — no translateY, no fractional pixels */
+}
+
+.hero-img-frame {
+  width: 320px;
+  height: 380px;
+  position: relative;
+}
+
+/* Accent border gradient */
+.hero-img-frame::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--accent), transparent, transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Decorative watermark text */
+.hero-img-frame::after {
+  content: '<dev/>';
+  font-family: var(--mono);
+  font-size: 5rem;
+  color: rgba(255, 77, 46, 0.06);
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  z-index: 0;
+}
+
+.hero-avatar {
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+/* Shown when hero.profilePhoto is null in data.js */
+.avatar-placeholder {
+  font-family: var(--display);
+  font-size: 8rem;
+  color: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Shown when hero.profilePhoto has a path in data.js */
+.avatar-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;   /* adjust % to reframe the face up/down */
+  display: block;
+}

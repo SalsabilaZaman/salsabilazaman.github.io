@@ -1,0 +1,56 @@
+/* ===== EDUCATION ===== */
+
+/* To add another degree: copy the .education-card block in index.html */
+
+.education {
+  background: var(--bg);
+}
+
+.education-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 2.5rem;
+  max-width: 500px;
+}
+
+.edu-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.edu-degree {
+  font-family: var(--display);
+  font-size: 2rem;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.edu-uni {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.edu-years {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.edu-cgpa {
+  font-family: var(--display);
+  font-size: 4rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.edu-cgpa-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}

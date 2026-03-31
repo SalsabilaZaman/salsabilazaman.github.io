@@ -1,0 +1,38 @@
+/* ===== ACHIEVEMENTS ===== */
+
+/* To add an achievement: copy an .achieve-item block in index.html */
+
+.achievements {
+  background: var(--bg2);
+}
+
+.achieve-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 800px;
+}
+
+.achieve-item {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+}
+
+.achieve-bullet {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.achieve-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ccc;
+}

@@ -1,0 +1,37 @@
+/* ===== TECH SCROLL (marquee strip) ===== */
+
+.tech-scroll {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 0;
+  overflow: hidden;
+}
+
+.tech-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.tech-item {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Accent bullet before each item */
+.tech-item span {
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+/* To add/remove items: edit the HTML in the tech-scroll section.
+   Duplicate items are needed for the seamless loop — keep two identical sets. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

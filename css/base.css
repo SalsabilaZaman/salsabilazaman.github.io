@@ -1,0 +1,137 @@
+/* ===== BASE: Variables, Reset, Typography, Shared Utilities ===== */
+
+/* ---------- Reset ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* Background layers */
+  --bg:      #0d0d0d;   /* page background */
+  --bg2:     #141414;   /* alternate section background */
+  --surface: #1a1a1a;   /* card / input background */
+  --border:  #2a2a2a;   /* border / subtle dividers */
+
+  /* Accent */
+  --accent:  #ff4d2e;   /* primary accent (red-orange) */
+  --accent2: #ff7a57;   /* hover accent */
+
+  /* Text */
+  --text:  #f0ece6;     /* primary text */
+  --muted: #888;        /* secondary / placeholder text */
+
+  /* Font families */
+  --mono:    'Space Mono', monospace;
+  --display: 'Bebas Neue', cursive;
+  --body:    'DM Sans', sans-serif;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  overflow-x: hidden;
+}
+
+/* ---------- Section Defaults ---------- */
+section {
+  padding: 6rem 5%;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.section-title span {
+  color: var(--accent);
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 3rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.75rem 1.8rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--accent2);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  padding: 0.75rem 1.8rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- Shared Tag ---------- */
+.tag {
+  font-size: 0.78rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .hero-image       { display: none; }
+  .about-grid       { grid-template-columns: 1fr; }
+  .contact-inner    { grid-template-columns: 1fr; }
+  .project-item     { grid-template-columns: 1fr; }
+  .project-item.reverse { direction: ltr; }
+  .stats            { gap: 1.5rem; }
+  .other-projects-grid { grid-template-columns: 1fr; }
+  .achieve-list     { max-width: 100%; }
+}

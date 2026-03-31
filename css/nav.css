@@ -1,0 +1,62 @@
+/* ===== NAV ===== */
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 5%;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.nav-logo {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+
+/* Resume pill in nav */
+.nav-resume {
+  color: var(--accent) !important;
+  border: 1px solid var(--accent);
+  padding: 0.35rem 0.9rem;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.nav-resume:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+}

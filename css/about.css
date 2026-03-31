@@ -1,0 +1,74 @@
+/* ===== ABOUT ===== */
+
+.about {
+  background: var(--bg2);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ---------- Service / Speciality Items ---------- */
+.about-services {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-left: 3px solid transparent;
+  background: var(--surface);
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.service-item:hover {
+  border-left-color: var(--accent);
+  background: #1f1f1f;
+}
+
+.service-icon {
+  font-size: 1.5rem;
+}
+
+.service-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ---------- Text ---------- */
+.about-text {
+  font-size: 0.95rem;
+  color: #aaa;
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-num {
+  font-family: var(--display);
+  font-size: 3.5rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
