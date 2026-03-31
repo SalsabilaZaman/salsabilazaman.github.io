@@ -236,7 +236,9 @@ function renderEducation() {
 
 function renderContact() {
   const c = DATA.contact;
-  document.getElementById('contact-container').innerHTML = `
+  const container = document.getElementById('contact-container');
+
+  container.innerHTML = `
     <div class="fade-up">
       <div class="section-label">// let's connect</div>
       <div class="contact-heading">Have something<br>in mind?<br><span>I'm around.</span></div>
@@ -247,22 +249,55 @@ function renderContact() {
         <div class="contact-row">⌖ ${c.location}</div>
       </div>
     </div>
-    <form class="contact-form fade-up">
+    <form class="contact-form fade-up" id="contact-form">
       <div class="form-field">
         <label class="form-label" for="name">Name</label>
-        <input type="text" id="name" class="form-input" placeholder="Your name">
+        <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
       </div>
       <div class="form-field">
         <label class="form-label" for="email">Email</label>
-        <input type="email" id="email" class="form-input" placeholder="your@email.com">
+        <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
       </div>
       <div class="form-field">
         <label class="form-label" for="message">Message</label>
-        <textarea id="message" class="form-textarea" placeholder="Tell me about your project..."></textarea>
+        <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project..." required></textarea>
       </div>
-      <button type="submit" class="btn-submit">Send Message →</button>
+      <button type="submit" class="btn-submit" id="submit-btn">Send Message →</button>
+      <p class="form-status" id="form-status"></p>
     </form>
   `;
+
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn    = document.getElementById('submit-btn');
+    const status = document.getElementById('form-status');
+    const form   = e.target;
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(DATA.contact.formspreeEndpoint, {
+        method:  'POST',
+        headers: { 'Accept': 'application/json' },
+        body:    new FormData(form),
+      });
+
+      if (res.ok) {
+        status.textContent = "Message sent! I'll get back to you soon.";
+        status.style.color = '#4ade80';
+        form.reset();
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      status.textContent = 'Something went wrong. Try emailing me directly.';
+      status.style.color = '#f87171';
+    } finally {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  });
 }
 
 /* ---- Footer ------------------------------------------------------------- */
