@@ -65,6 +65,7 @@
 
 .hero-name span {
   color: var(--accent);
+  text-shadow: 0 0 40px rgba(255, 77, 46, 0.3);
 }
 
 .hero-title {

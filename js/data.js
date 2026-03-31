@@ -16,7 +16,7 @@ const DATA = {
     firstName:    'Salsabila',
     lastName:     'Zaman',
     title:        'Software Engineering Undergraduate & Backend Developer',
-    desc:         'I enjoy building secure, scalable systems and backend applications. Particularly interested in system design, cybersecurity, and intelligent software systems.',
+    desc:         "I'm a Software Engineering student at the University of Dhaka, focused on backend development and system design. I care about writing code that's readable and building systems that don't fall over.",
     profilePhoto: 'images/profile-photo.jpg',   // set to null to show initials instead
   },
 
@@ -34,15 +34,14 @@ const DATA = {
       { icon: '🧠', name: 'Machine Learning'      },
     ],
     paragraphs: [
-      'I am an undergraduate Software Engineering student at the University of Dhaka with a strong interest in backend development, system design, cybersecurity, and intelligent software systems.',
-      'I enjoy building applications that solve real-world problems and focus on writing clean, maintainable, and scalable code. My experience includes developing full-stack web applications, microservices-based systems, machine learning applications, and automation tools.',
-      'I am also actively involved in Capture The Flag (CTF) competitions and competitive programming, which has helped me develop strong problem-solving, analytical thinking, and debugging skills.',
-      'Currently, I am looking for opportunities to work on backend systems, distributed applications, and security-focused software projects.',
+      "My main interest is backend work — APIs, databases, system design, and the occasional security rabbit hole. I like understanding how things fit together under the hood.",
+      "I compete in CTF competitions (reverse engineering, forensics, cryptography) and do competitive programming on Codeforces. Both have made me a noticeably better debugger.",
+      "I'm currently looking for backend or security-adjacent opportunities. I work well in environments where there's real code to read and real problems to solve.",
     ],
     stats: [
       { num: '100+', label: 'CTF Challenges<br>Solved'   },
       { num: '200+', label: 'Competitive<br>Problems'    },
-      { num: '3.85', label: 'CGPA<br>/ 4.00'            },
+      { num: '3.88', label: 'CGPA<br>/ 4.00'            },
     ],
   },
 
@@ -62,7 +61,7 @@ const DATA = {
     {
       name:   'PocketNotion',
       tags:   ['Node.js', 'Express.js', 'PostgreSQL', 'REST API', 'HTML', 'CSS'],
-      desc:   'A lightweight note-taking and organization web application inspired by Notion. Users can create, edit, organize, and manage notes with authentication and persistent database storage. Focuses on backend architecture, REST API development, database design, and user authentication.',
+      desc:   "A Notion-inspired note-taking app I built to get hands-on with REST API design and PostgreSQL. The interesting part was designing the auth flow and keeping the data model flexible enough to support nested pages without it becoming a mess.",
       github: 'https://github.com/SalsabilaZaman',
       demo:   null,
       image:  'images/pocketNotion.png',    // set to null to show the grid placeholder
@@ -71,7 +70,7 @@ const DATA = {
     {
       name:   'Ticket Watcher',
       tags:   ['Python', 'Web Scraping', 'Scheduling', 'APIs'],
-      desc:   'An automated monitoring system that tracks ticket availability and notifies users when tickets become available. The system periodically checks websites, processes data, and sends notifications — demonstrating automation, scheduling, and backend processing.',
+      desc:   "Built this to solve a real problem — manually checking for ticket availability is tedious. It polls target pages on a schedule, detects changes, and sends notifications. Taught me a lot about rate limiting, reliable scheduling, and handling flaky network responses.",
       github: 'https://github.com/SalsabilaZaman',
       demo:   null,
       image:  'images/ticketWatcher.png',   // set to null to show the grid placeholder
@@ -80,7 +79,7 @@ const DATA = {
     {
       name:   'Smart Library System',
       tags:   ['Microservices', 'Node.js', 'Docker', 'PostgreSQL', 'REST APIs'],
-      desc:   'A microservices-based library management system with separate services for books, users, borrowing, and authentication. Each service owns its database and communicates via REST APIs. Demonstrates database-per-service architecture and scalable backend system design.',
+      desc:   "A library management system split across independent services — books, users, borrowing, and auth — each with its own database. The goal was to understand microservices trade-offs firsthand. Wiring the inter-service communication and keeping data consistent across services was the main challenge.",
       github: 'https://github.com/SalsabilaZaman',
       demo:   null,
       image:  null,                         // no screenshot yet — shows grid placeholder
@@ -89,7 +88,7 @@ const DATA = {
     {
       name:   'DroidScanner',
       tags:   ['Python', 'PyQt5', 'Machine Learning', 'SQLite'],
-      desc:   'A desktop application that analyzes Android APK files and classifies them as malicious or benign using machine learning. Extracts features from Android manifest files, stores them in a database, and uses a trained model for classification — combining cybersecurity, ML, and software engineering.',
+      desc:   "A desktop tool that takes an Android APK, pulls features from the manifest file, and runs them through a trained classifier to flag malicious apps. Combines two things I find interesting — static analysis and ML. Getting the feature extraction right took most of the time.",
       github: 'https://github.com/SalsabilaZaman',
       demo:   null,
       image:       'images/droidScanner.png',
@@ -99,7 +98,7 @@ const DATA = {
     {
       name:   'Obhoy – AI Chatbot',
       tags:   ['Python', 'NLP', 'Backend APIs'],
-      desc:   'An AI-based mental health support chatbot designed to provide basic emotional support and conversation using natural language processing. Demonstrates AI integration, backend logic design, and user interaction systems.',
+      desc:   "A mental health support chatbot built around NLP. The focus was on the conversation logic and backend — making responses feel contextually appropriate rather than random. It's a hard problem to do well, and this was an honest attempt at a practical version.",
       github: 'https://github.com/SalsabilaZaman',
       demo:   null,
       image:  null,                         // no screenshot yet — shows grid placeholder
@@ -111,25 +110,25 @@ const DATA = {
   otherProjects: [
     {
       name:   'Wumpus World AI Agent',
-      desc:   'Logical agent simulation built using Python and Pygame. Implements knowledge-based agent decision making in the classic Wumpus World environment.',
+      desc:   'A knowledge-based agent navigating the Wumpus World environment in Python and Pygame. Built for an AI course — more interesting to implement than it sounds.',
       tags:   ['Python', 'Pygame', 'AI'],
       github: null,
     },
     {
       name:   'Khai-Dai',
-      desc:   'Food delivery web application with user authentication, ordering system, and full database integration covering the complete food ordering workflow.',
+      desc:   'A food delivery web app with user auth, order management, and database integration. Full workflow from browsing to checkout.',
       tags:   ['Web App', 'Auth', 'Database'],
       github: null,
     },
     {
       name:   'Connect4 AI Game',
-      desc:   'Browser-based Connect4 game with an AI opponent implemented using the Minimax algorithm with Alpha-Beta pruning for optimal move selection.',
+      desc:   'Browser-based Connect4 with an AI opponent using Minimax and Alpha-Beta pruning. The pruning made a noticeable difference in response speed.',
       tags:   ['JavaScript', 'Minimax', 'AI'],
       github: null,
     },
     {
       name:   'Numeric Operations Library',
-      desc:   'C++ mathematical computation library implementing prime operations, expression evaluation, matrix computations, and equation solvers.',
+      desc:   'A C++ library covering prime operations, expression parsing, matrix computations, and equation solvers. Written from scratch, no external dependencies.',
       tags:   ['C++', 'Algorithms', 'Math'],
       github: null,
     },
@@ -137,10 +136,10 @@ const DATA = {
 
   /* ---- Achievements ---------------------------------------------------- */
   achievements: [
-    'Solved <strong>100+ Capture The Flag (CTF)</strong> challenges in reverse engineering, forensics, cryptography, steganography, and OSINT',
+    '100+ CTF challenges solved across <strong>reverse engineering, forensics, cryptography, steganography, and OSINT</strong>',
     '<strong>Finalist</strong> – UAP Cyber Siege 2025 (National Cybersecurity Competition)',
     '<strong>2nd Runner-up</strong> – National Number Carnival, BUET 2025',
-    'Active competitive programmer on <strong>Codeforces</strong> with 200+ problems solved',
+    '200+ problems solved on <strong>Codeforces</strong>',
   ],
 
   /* ---- Education ------------------------------------------------------- */

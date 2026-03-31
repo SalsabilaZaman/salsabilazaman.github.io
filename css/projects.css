@@ -123,6 +123,7 @@
 .project-visual--img {
   padding: 0;
   background: var(--surface);
+  overflow: hidden;
 }
 
 .project-visual--img::before {
@@ -135,6 +136,11 @@
   object-fit: cover;
   object-position: top;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.project-visual--img:hover .project-screenshot {
+  transform: scale(1.04);
 }
 
 /* Use this class in data.js visual field when the image is an icon/logo rather than a screenshot */
@@ -162,11 +168,12 @@
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 1.5rem;
-  transition: border-color 0.2s;
+  transition: border-color 0.25s, transform 0.25s;
 }
 
 .other-project-card:hover {
   border-color: var(--accent);
+  transform: translateY(-4px);
 }
 
 .other-project-name {

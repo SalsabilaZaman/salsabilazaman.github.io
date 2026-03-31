@@ -1,7 +1,6 @@
 /* ===================================================================
-   MAIN.JS — Renders DATA into the page + handles nav active state.
-   Only edit this file if you need to change layout/structure.
-   For content changes, edit js/data.js instead.
+   MAIN.JS — Renders DATA + all interactions.
+   Edit js/data.js for content. Only touch this for layout/behaviour.
    =================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,7 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   renderEducation();
   renderContact();
   renderFooter();
+
+  initScrollAnimations();
   initNavActiveLink();
+  initHamburger();
+  initStatCounters();
 });
 
 /* ---- Helpers ------------------------------------------------------------ */
@@ -48,7 +51,6 @@ function renderNav() {
 function renderHero() {
   const h = DATA.hero;
 
-  // Profile photo: use <img> if provided, else show initials
   const avatar = h.profilePhoto
     ? `<img src="${h.profilePhoto}" alt="${h.firstName} ${h.lastName}" class="avatar-photo">`
     : `<span class="avatar-placeholder">${h.firstName[0]}${h.lastName[0]}</span>`;
@@ -71,7 +73,6 @@ function renderHero() {
 
 function renderTechScroll() {
   const item = t => `<span class="tech-item"><span>✦</span>${t}</span>`;
-  // Duplicate the set for the seamless infinite loop
   const set = DATA.techStack.map(item).join('');
   document.getElementById('tech-track').innerHTML = set + set;
 }
@@ -90,18 +91,24 @@ function renderAbout() {
     `<p class="about-text">${p}</p>`
   ).join('');
 
-  const stats = DATA.about.stats.map(s =>
-    `<div><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`
-  ).join('');
+  // Stats: store the raw number in data-target for the counter animation
+  const stats = DATA.about.stats.map(s => {
+    const raw = parseFloat(s.num.replace('+', ''));
+    const isPlus = s.num.includes('+');
+    return `<div>
+      <div class="stat-num" data-target="${raw}" data-plus="${isPlus}">0${isPlus ? '+' : ''}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>`;
+  }).join('');
 
   document.getElementById('about-grid').innerHTML = `
-    <div>
+    <div class="fade-up">
       <div class="section-label">// who i am</div>
       <div class="section-title">About<br><span>Me</span></div>
       <div class="divider"></div>
       <div class="about-services">${services}</div>
     </div>
-    <div>
+    <div class="fade-up">
       ${paragraphs}
       <div class="stats">${stats}</div>
     </div>
@@ -111,17 +118,17 @@ function renderAbout() {
 /* ---- Skills ------------------------------------------------------------- */
 
 function renderSkills() {
-  const cards = DATA.skills.map(s => `
-    <div class="skill-card">
+  const cards = DATA.skills.map((s, i) => `
+    <div class="skill-card stagger-child" style="--delay: ${i * 0.07}s">
       <div class="skill-cat">${s.category}</div>
       <div class="skill-tags">${tags(s.tags)}</div>
     </div>
   `).join('');
 
   document.getElementById('skills-container').innerHTML = `
-    <div class="section-label">// what i use</div>
-    <div class="section-title">Skills &amp;<br><span>Tech Stack</span></div>
-    <div class="divider"></div>
+    <div class="section-label fade-up">// what i use</div>
+    <div class="section-title fade-up">Skills &amp;<br><span>Tech Stack</span></div>
+    <div class="divider fade-up"></div>
     <div class="skills-grid">${cards}</div>
   `;
 }
@@ -133,7 +140,6 @@ function renderFeaturedProjects() {
     const num    = String(i + 1).padStart(2, '0');
     const rev    = i % 2 !== 0 ? 'reverse' : '';
     const visual = p.visual.replace('\n', '<br>');
-    // Use screenshot if available, otherwise show the decorative grid placeholder
     const imgClass = p.imageStyle === 'contain'
       ? 'project-screenshot project-screenshot--contain'
       : 'project-screenshot';
@@ -145,7 +151,7 @@ function renderFeaturedProjects() {
            <span class="project-visual-label">${visual}</span>
          </div>`;
     return `
-      <div class="project-item ${rev}">
+      <div class="project-item ${rev} fade-up">
         <div>
           <div class="project-num">${num}</div>
           <div class="project-name">${p.name}</div>
@@ -159,9 +165,9 @@ function renderFeaturedProjects() {
   }).join('');
 
   document.getElementById('featured-projects-container').innerHTML = `
-    <div class="section-label">// what i built</div>
-    <div class="section-title">Featured<br><span>Projects</span></div>
-    <div class="divider"></div>
+    <div class="section-label fade-up">// what i built</div>
+    <div class="section-title fade-up">Featured<br><span>Projects</span></div>
+    <div class="divider fade-up"></div>
     ${items}
   `;
 }
@@ -169,8 +175,8 @@ function renderFeaturedProjects() {
 /* ---- Other Projects ----------------------------------------------------- */
 
 function renderOtherProjects() {
-  const cards = DATA.otherProjects.map(p => `
-    <div class="other-project-card">
+  const cards = DATA.otherProjects.map((p, i) => `
+    <div class="other-project-card stagger-child" style="--delay: ${i * 0.08}s">
       <div class="other-project-name">${p.name}</div>
       <p class="other-project-desc">${p.desc}</p>
       <div class="other-project-tags">${tags(p.tags, 'project-tag')}</div>
@@ -179,9 +185,9 @@ function renderOtherProjects() {
   `).join('');
 
   document.getElementById('other-projects-container').innerHTML = `
-    <div class="section-label">// more work</div>
-    <div class="section-title">Other<br><span>Projects</span></div>
-    <div class="divider"></div>
+    <div class="section-label fade-up">// more work</div>
+    <div class="section-title fade-up">Other<br><span>Projects</span></div>
+    <div class="divider fade-up"></div>
     <div class="other-projects-grid">${cards}</div>
   `;
 }
@@ -189,17 +195,17 @@ function renderOtherProjects() {
 /* ---- Achievements ------------------------------------------------------- */
 
 function renderAchievements() {
-  const items = DATA.achievements.map(a => `
-    <div class="achieve-item">
+  const items = DATA.achievements.map((a, i) => `
+    <div class="achieve-item stagger-child" style="--delay: ${i * 0.1}s">
       <span class="achieve-bullet">▶</span>
       <span class="achieve-text">${a}</span>
     </div>
   `).join('');
 
   document.getElementById('achievements-container').innerHTML = `
-    <div class="section-label">// highlights</div>
-    <div class="section-title">Achievements &amp;<br><span>Activities</span></div>
-    <div class="divider"></div>
+    <div class="section-label fade-up">// highlights</div>
+    <div class="section-title fade-up">Achievements &amp;<br><span>Activities</span></div>
+    <div class="divider fade-up"></div>
     <div class="achieve-list">${items}</div>
   `;
 }
@@ -208,7 +214,7 @@ function renderAchievements() {
 
 function renderEducation() {
   const cards = DATA.education.map(e => `
-    <div class="education-card">
+    <div class="education-card fade-up">
       <div class="edu-label">// university</div>
       <div class="edu-degree">${e.degree}</div>
       <div class="edu-uni">${e.uni}</div>
@@ -219,9 +225,9 @@ function renderEducation() {
   `).join('');
 
   document.getElementById('education-container').innerHTML = `
-    <div class="section-label">// my background</div>
-    <div class="section-title">Edu<span>cation</span></div>
-    <div class="divider"></div>
+    <div class="section-label fade-up">// my background</div>
+    <div class="section-title fade-up">Edu<span>cation</span></div>
+    <div class="divider fade-up"></div>
     ${cards}
   `;
 }
@@ -231,9 +237,9 @@ function renderEducation() {
 function renderContact() {
   const c = DATA.contact;
   document.getElementById('contact-container').innerHTML = `
-    <div>
+    <div class="fade-up">
       <div class="section-label">// let's connect</div>
-      <div class="contact-heading">Have a<br>project?<br><span>Let's talk!</span></div>
+      <div class="contact-heading">Have something<br>in mind?<br><span>I'm around.</span></div>
       <div class="contact-info">
         <div class="contact-row">✉ <a href="mailto:${c.email}">${c.email}</a></div>
         <div class="contact-row">⌥ <a href="${c.github}" target="_blank" rel="noopener">${c.github.replace('https://', '')}</a></div>
@@ -241,7 +247,7 @@ function renderContact() {
         <div class="contact-row">⌖ ${c.location}</div>
       </div>
     </div>
-    <form class="contact-form">
+    <form class="contact-form fade-up">
       <div class="form-field">
         <label class="form-label" for="name">Name</label>
         <input type="text" id="name" class="form-input" placeholder="Your name">
@@ -274,6 +280,29 @@ function renderFooter() {
   `;
 }
 
+/* ---- Scroll Animations -------------------------------------------------- */
+
+function initScrollAnimations() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // animate once only
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  // Observe after a tick so rendered DOM is available
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fade-up, .stagger-child').forEach(el => {
+      observer.observe(el);
+    });
+  });
+}
+
 /* ---- Active Nav Link on Scroll ------------------------------------------ */
 
 function initNavActiveLink() {
@@ -294,4 +323,66 @@ function initNavActiveLink() {
   );
 
   sections.forEach(s => observer.observe(s));
+}
+
+/* ---- Hamburger Menu ----------------------------------------------------- */
+
+function initHamburger() {
+  const toggle = document.getElementById('nav-toggle');
+  const links  = document.getElementById('nav-links');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.classList.toggle('open');
+    links.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close on nav link click
+  links.addEventListener('click', e => {
+    if (e.target.tagName === 'A') {
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+/* ---- Stat Counters ------------------------------------------------------ */
+
+function initStatCounters() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const els = entry.target.querySelectorAll('.stat-num[data-target]');
+        els.forEach(el => animateCounter(el));
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  // Observe the stats container (rendered inside about-grid)
+  requestAnimationFrame(() => {
+    const statsEl = document.querySelector('.stats');
+    if (statsEl) observer.observe(statsEl);
+  });
+}
+
+function animateCounter(el) {
+  const target   = parseFloat(el.dataset.target);
+  const isPlus   = el.dataset.plus === 'true';
+  const isFloat  = !Number.isInteger(target);
+  const duration = 1200;
+  const start    = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    const value    = target * eased;
+    el.textContent = (isFloat ? value.toFixed(2) : Math.floor(value)) + (isPlus ? '+' : '');
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
 }
